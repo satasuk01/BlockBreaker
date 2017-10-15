@@ -23,7 +23,7 @@ public class Ball : MonoBehaviour {
 				Debug.Log ("Left clicked");
 				hasStarted = true;
 				//this.rigidbody2D.velocity = new Vector2 (2f, 10f); can't use on newer version of unity
-				this.gameObject.GetComponent<Rigidbody2D> ().velocity = new Vector2 (2f, 10f);
+				this.gameObject.GetComponent<Rigidbody2D> ().velocity = new Vector2 (2f, 13f); //shoot velocity
 			}
 		}
 	}
