@@ -12,4 +12,8 @@ public class LevelManager : MonoBehaviour {
 		Debug.Log ("Requested for quit");
 		Application.Quit();
 	}
+	public void loadNextLevel(){
+		Application.LoadLevel (Application.loadedLevel + 1); //loaded level return int
+		//TODO add a maximum load level when complete
+	}
 }
