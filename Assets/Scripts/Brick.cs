@@ -3,18 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Brick : MonoBehaviour {
-	public int maxHits;
+	
+	public Sprite[] hitSprites;
+
+	private int maxHits;
 	private int hitCount;
 	//public LevelManager levelmanager;//not use find method cause new version don't need it
 	private LevelManager levelmanager;
 	//-----------------
 	void OnCollisionEnter2D(Collision2D collision){ //when something hit it
+		bool isBreakable = (this.tag == "Breakable");
+		if (isBreakable) handleHits();
+	}
+
+	void handleHits(){
 		//Debug.Log(this.ToString+" get hit!!!");
 		hitCount++;
-		if(hitCount >= maxHits) {
+		maxHits = hitSprites.Length + 1;
+		if (hitCount >= maxHits) {
 			Destroy (gameObject); //don't use this(it'll destroy all bricks)
+		} else {
+			loadSprites ();
 		}
 		//Debug.Log(hitCount);
+	}
+
+	void loadSprites(){
+		int index = hitCount - 1;
+		if(hitSprites[index])this.GetComponent<SpriteRenderer> ().sprite = hitSprites [index];
 	}
 	//----------------
 
