@@ -27,8 +27,17 @@ public class Ball : MonoBehaviour {
 				Debug.Log ("Left clicked");
 				hasStarted = true;
 				//this.rigidbody2D.velocity = new Vector2 (2f, 10f); can't use on newer version of unity
-				this.gameObject.GetComponent<Rigidbody2D> ().velocity = new Vector2 (2f, 14f); //shoot velocity
+				this.gameObject.GetComponent<Rigidbody2D> ().velocity = new Vector2 (2f, 10f); //shoot velocity
 			}
+		}
+	}
+	void OnCollisionEnter2D(Collision2D collision){
+		Vector2 tweak = new Vector2 (Random.Range (-2.2f, 2.2f), Random.Range (0f, 0.1f)); 
+
+		if (hasStarted) {
+			AudioSource audio = GetComponent<AudioSource> ();
+			audio.Play ();
+			this.gameObject.GetComponent<Rigidbody2D> ().velocity += tweak;//prevent boring loops
 		}
 	}
 }

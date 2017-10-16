@@ -16,4 +16,9 @@ public class LevelManager : MonoBehaviour {
 		Application.LoadLevel (Application.loadedLevel + 1); //loaded level return int
 		//TODO add a maximum load level when complete
 	}
+	public void BrickDestroyed(){
+		if(Brick.breakableBlocksCount<=0){
+			loadNextLevel();
+		}
+	}
 }
