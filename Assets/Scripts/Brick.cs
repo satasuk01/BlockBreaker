@@ -5,9 +5,11 @@ using UnityEngine;
 public class Brick : MonoBehaviour {
 	public AudioClip hitSound;
 	public Sprite[] hitSprites;
+	public GameObject smoke;
 	private bool isBreakable; //= (this.tag == "Breakable");
 	private int maxHits;
 	private int hitCount;
+
 
 	public static int breakableBlocksCount = 0;
 	//public LevelManager levelmanager;//not use find method cause new version don't need it
@@ -26,6 +28,7 @@ public class Brick : MonoBehaviour {
 		if (hitCount >= maxHits) {
 			breakableBlocksCount--;
 			levelmanager.BrickDestroyed ();
+			PuffSmoke ();
 			Destroy (gameObject); //don't use this(it'll destroy all bricks)
 		} else {
 			loadSprites ();
@@ -33,9 +36,20 @@ public class Brick : MonoBehaviour {
 		//Debug.Log(hitCount);
 	}
 
+	void PuffSmoke(){
+		//Instantiate (smoke, gameObject.transform.position, Quaternion.identity);//make smoke at the brick at quaternion rotation
+		//Don't error but just changing//GameObject smokePuff = Instantiate (smoke, gameObject.transform.position, Quaternion.identity);
+		GameObject smokePuff = Instantiate (smoke, transform.position, Quaternion.identity) as GameObject;//Casting into a GameObject (Older version of unity Instantiate doesn't return GameObject type)
+		smokePuff.GetComponent<ParticleSystem> ().startColor = gameObject.GetComponent<SpriteRenderer> ().color; //make the color of the smoke same as the brick color
+	}
+
+
 	void loadSprites(){
 		int index = hitCount - 1;
-		if(hitSprites[index])this.GetComponent<SpriteRenderer> ().sprite = hitSprites [index];
+		if (hitSprites [index] != null)
+			this.GetComponent<SpriteRenderer> ().sprite = hitSprites [index];
+		else
+			Debug.LogError ("Brick sprite missing");
 	}
 	//----------------
 

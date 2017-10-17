@@ -32,11 +32,12 @@ public class Ball : MonoBehaviour {
 		}
 	}
 	void OnCollisionEnter2D(Collision2D collision){
-		Vector2 tweak = new Vector2 (Random.Range (-2.2f, 2.2f), Random.Range (0f, 0.1f)); 
+		Vector2 tweak = new Vector2 (Random.Range (-0.5f, 0.5f), Random.Range (0f, 0.1f)); 
 
 		if (hasStarted) {
-			AudioSource audio = GetComponent<AudioSource> ();
-			audio.Play ();
+			//AudioSource audio = GetComponent<AudioSource> ();
+			//audio.Play (); for unity 4
+			GetComponent<AudioSource> ().Play(); //unity5
 			this.gameObject.GetComponent<Rigidbody2D> ().velocity += tweak;//prevent boring loops
 		}
 	}
